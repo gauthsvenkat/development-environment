@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'Dockerfile'
+  workflow_dispatch:
 
 jobs:
   build_and_push_docker_image:
