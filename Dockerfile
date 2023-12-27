@@ -1,10 +1,9 @@
 FROM debian:stable-slim
 
 # Install base dependencies
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
     sudo \
     curl \
-    wget \
     git \
     zsh \
     gcc \
@@ -20,7 +19,7 @@ RUN apt update && apt install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Neovim system-wide
-RUN wget https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz && \
+RUN curl -O https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz && \
     tar xzf nvim-linux64.tar.gz && \
     rm -if /usr/local/man && \
     cp -r nvim-linux64/* /usr/local/ && \
@@ -35,6 +34,6 @@ USER dev
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 # Setup Oh My Zsh and personal neovim config
-RUN sh -c "$(wget --progress=dot:giga https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" --unattended && \
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended && \
     git clone https://github.com/gauthsvenkat/nvim.git /home/dev/.config/nvim && \
     nvim -c "q"
