@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Neovim system-wide
-RUN curl -O https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz && \
+RUN curl -LO https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz && \
     tar xzf nvim-linux64.tar.gz && \
     rm -if /usr/local/man && \
     cp -r nvim-linux64/* /usr/local/ && \
