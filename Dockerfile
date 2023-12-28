@@ -7,6 +7,9 @@ RUN apt update && apt install -y \
     wget \
     git \
     zsh \
+    ninja-build \
+    gettext \
+    unzip \
     gcc \
     make \
     cmake \
@@ -19,12 +22,13 @@ RUN apt update && apt install -y \
     fd-find \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Neovim system-wide
-RUN wget https://github.com/neovim/neovim/releases/download/v0.9.4/nvim-linux64.tar.gz && \
-    tar xzf nvim-linux64.tar.gz && \
-    rm -if /usr/local/man && \
-    cp -r nvim-linux64/* /usr/local/ && \
-    rm -rf nvim-linux64 nvim-linux64.tar.gz
+# Install Neovim from source
+RUN git clone -b stable https://github.com/neovim/neovim && \
+    cd neovim && \
+    make CMAKE_BUILD_TYPE=RelWithDebInfo && \
+    make install && \
+    cd .. && \
+    rm -rf neovim
 
 # Create user and give it sudo access without password
 RUN useradd -m dev && \
