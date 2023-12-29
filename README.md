@@ -11,6 +11,7 @@
 - You might want to add extra options (eg.environment variables) to the docker run command like so.
   ```
   --volume /path/to/.ssh:/home/dev/.ssh:ro \
+  --volume /path/to/.config/github-copilot/hosts.json:/home/dev/.config/github-copilot/hosts.json:ro \
   --publish 8050:8050 \
   --env DEXTER_API_PRODUCTION_USER="<your_username>" \
   --env DEXTER_API_PRODUCTION_PASSWORD="<your_password>" \
