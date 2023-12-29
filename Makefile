@@ -14,9 +14,8 @@ run:
 	@if [ -z $$(docker ps -aqf "name=$(CONTAINER_NAME)") ]; then \
 		docker run -it \
 			--name $(CONTAINER_NAME) \
-			--volume $(CURDIR):/workspace \
-			--user $(shell id -u):$(shell id -g) \
-			--workdir /workspace \
+			--volume $(CURDIR):/$(CURDIR) \
+			--workdir /$(CURDIR) \
 			ghcr.io/gauthsvenkat/development-environment zsh; \
 	else \
 		docker start -i $(CONTAINER_NAME); \
