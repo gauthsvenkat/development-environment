@@ -17,7 +17,7 @@ run:
 			--name $(CONTAINER_NAME) \
 			--volume $(CURDIR):$(PROJECT_INSIDE_CONTAINER) \
 			--workdir $(PROJECT_INSIDE_CONTAINER) \
-			ghcr.io/gauthsvenkat/development-environment \
+			ghcr.io/gauthsvenkat/development-environment; \
 	else \
 		docker start -i $(CONTAINER_NAME); \
 	fi
