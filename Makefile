@@ -1,5 +1,6 @@
 # Variables
 PROJECT_NAME := $(notdir $(CURDIR))
+PROJECT_INSIDE_CONTAINER := /workspace/$(PROJECT_NAME)
 CONTAINER_NAME := $(PROJECT_NAME)_devcontainer
 
 # Set the default target
@@ -14,8 +15,8 @@ run:
 	@if [ -z $$(docker ps -aqf "name=$(CONTAINER_NAME)") ]; then \
 		docker run -it \
 			--name $(CONTAINER_NAME) \
-			--volume $(CURDIR):/$(CURDIR) \
-			--workdir /$(CURDIR) \
+			--volume $(CURDIR):$(PROJECT_INSIDE_CONTAINER) \
+			--workdir $(PROJECT_INSIDE_CONTAINER) \
 			ghcr.io/gauthsvenkat/development-environment zsh; \
 	else \
 		docker start -i $(CONTAINER_NAME); \
