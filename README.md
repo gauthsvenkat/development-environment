@@ -7,7 +7,7 @@
 
 ## Instructions
 
-- Copy the contents of [Makefile](Makefile) locally.
+- Copy the contents of [Makefile.template](Makefile.template) locally.
 - You might want to add extra options (eg.environment variables) to the docker run command like so.
   ```
   --volume /path/to/.ssh:/home/dev/.ssh:ro \
