@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     sudo \
     zsh \
     git \
+    openssh-client \
     curl \
     ca-certificates \
     make \
@@ -32,7 +33,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     gcc \
     g++ \
     libc6-dev \
-    python3 \
+    python3-dev \
     python3-pip \
     python3-venv \
     python3-distutils \
@@ -47,6 +48,11 @@ USER dev
 # Install oh-my-zsh
 # This will create a ~/.zshrc file
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+
+# Install poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - && \
+    # Add poetry to path
+    echo "export PATH=$PATH:/home/dev/.local/bin" >> /home/dev/.zshrc
 
 # Install rustup (needed for sniprun)
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -64,7 +70,8 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | b
 
 # Install personal configs for neovim and zsh
 # Note that the plugins are not installed at this stage.
-RUN git clone https://github.com/gauthsvenkat/nvim.git /home/dev/.config/nvim
+RUN git clone https://github.com/gauthsvenkat/nvim.git /home/dev/.config/nvim && \
+    nvim -c ":q"
 
 # Default entry to the container is zsh
 CMD ["zsh"]
